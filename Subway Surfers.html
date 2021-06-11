@@ -1,0 +1,117 @@
+<html>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" href="https://i.postimg.cc/DSsFtczy/IMG-20210603-164519.jpg" sizes="16x16" type="image/jpg">
+  <style>
+    #board{
+      width:300px;
+      height:600px;
+      border:1px solid black;
+      position:relative;
+      left:22.5px;
+      overflow:hidden;
+    }
+    #villain{
+      width:100px;
+      height:100px;
+      background:black;
+      position:relative;
+      animation:block 1s linear infinite;
+    }
+    @keyframes block{
+      0%{
+        top:-130px;
+      }
+      100%{
+        top:600px;
+      }
+    }
+    #left1{
+      width:100px;
+      height:600px;
+      
+      position:relative;
+      top:-100px;
+    }
+    #left2{
+      width:100px;
+      height:600px;
+      
+      position:relative;
+      top:-702px;
+      left:100px;
+    }
+    #left3{
+      width:100px;
+      height:600px;
+
+      
+      position:relative;
+      top:-1304px;
+      left:200px;
+    }
+    #hero{
+      width:100px;
+      height:100px;
+     background:red;
+      position:relative;
+      top:500px;
+    }
+  
+  </style>
+  <div id="board">
+    <div id="villain"></div>
+    <div id="left1" onclick="left1();"><div id="hero"></div></div>
+    <div id="left2" onclick="left2();"></div>
+    <div id="left3" onclick="left3();"><div id="coin"></div></div>
+  </div>
+  <script>
+  var score = 0;
+ var i = setInterval( () => {
+    score++;
+  }, 1000);
+  var SI = setInterval( () => {
+      var MR = Math.floor(Math.random() * 3) + 1;
+      if(MR == 1){
+        document.getElementById("villain").style.left = "0";
+        document.getElementById("mr").innerHTML = MR;
+      }
+      if(MR == 2){
+          document.getElementById("villain").style.left = "100";
+        document.getElementById("mr").innerHTML = MR;  
+      }
+      if(MR == 3){
+          document.getElementById("villain").style.left = "200";
+        document.getElementById("mr").innerHTML = MR;  
+      }
+      
+    }, 1000)
+    function left1(){
+      document.getElementById("hero").style.left = "0";
+    }
+    function left2(){
+      document.getElementById("hero").style.left = "100";
+    }
+    function left3(){
+      document.getElementById("hero").style.left = "200";
+    }
+    var GameOver = setInterval( () => {
+      let character = document.getElementById("hero");
+      let charactertop = parseInt(window.getComputedStyle(character).getPropertyValue("top"));
+      let characterleft = parseInt(window.getComputedStyle(character).getPropertyValue("left"));
+      
+      
+      let block = document.getElementById("villain");
+      let blocktop = parseInt(window.getComputedStyle(block).getPropertyValue("top"));
+      let blockleft = parseInt(window.getComputedStyle(block).getPropertyValue("left"));
+      
+      if(characterleft == blockleft && blocktop >= 400 && blocktop <= 500){
+      alert("Game Over Your Score:" + score)
+        clearInterval(i);
+        block.style.animation = "none";
+        location.reload();
+      }
+
+    }, 1)
+    
+  </script>
+  <p id="mr" style="opacity:0;">Nan</p>
+</html>
